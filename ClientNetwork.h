@@ -8,10 +8,9 @@
 #ifndef CLIENTNETWORK_H_
 #define CLIENTNETWORK_H_
 
-#include <winsock2.h>
-#include <Windows.h>
-#include "NetworkServices.h"
 #include <ws2tcpip.h>
+#include <winsock2.h>
+#include "NetworkServices.h"
 #include <stdio.h>
 
 // size of buffer
@@ -19,9 +18,10 @@
 // port to connect sockets through
 #define DEFAULT_PORT "6881"
 // Linken van libraries
+/*
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
-#pragma comment (lib, "AdvApi32.lib")
+#pragma comment (lib, "AdvApi32.lib")*/
 
 class ClientNetwork
 {
@@ -32,7 +32,9 @@ public:
 	//client socket
 	SOCKET ConnectSocket;
 
+
 	ClientNetwork(void);
 	~ClientNetwork(void);
 };
 #endif /* CLIENTNETWORK_H_ */
+
