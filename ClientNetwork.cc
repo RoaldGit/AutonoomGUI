@@ -5,7 +5,8 @@
  *      Author: Stef
  */
 
-
+#define _WIN32_WINNT 0x501
+//#include <ws2tcpip.h>
 #include "ClientNetwork.h"
 
 ClientNetwork::ClientNetwork(void) {
@@ -49,7 +50,7 @@ ClientNetwork::ClientNetwork(void) {
 		ConnectSocket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
 
 		if(ConnectSocket == INVALID_SOCKET) {
-			printf("socket failed with error: %ld\n", WSAGetLastError());
+			printf("socket failed with error: %d\n", WSAGetLastError());
 			WSACleanup();
 			exit(1);
 		}
@@ -76,4 +77,5 @@ ClientNetwork::ClientNetwork(void) {
 		WSACleanup();
 		exit(1);
 	}
+	printf("haha");
 }
