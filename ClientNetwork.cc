@@ -36,7 +36,7 @@ ClientNetwork::ClientNetwork(void) {
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP; // TCP connection!!!
 
-	iResult = getaddrinfo("0.0.0.0", DEFAULT_PORT, &hints, &result);
+	iResult = getaddrinfo("192.168.1.105", DEFAULT_PORT, &hints, &result);
 
 	if(iResult != 0)
 	{
@@ -77,5 +77,19 @@ ClientNetwork::ClientNetwork(void) {
 		WSACleanup();
 		exit(1);
 	}
-	printf("haha");
+
+	// Set the mode of the socket to be nonblocking
+	u_long iMode = 1;
+	iResult = ioctlsocket(ConnectSocket, FIONBIO, &iMode);
+	if (iResult == SOCKET_ERROR)
+	{
+		printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+		closesocket(ConnectSocket);
+		WSACleanup();
+		exit(1);
+	}
+
+	//disable nagle
+	char value = 1;
+	setsockopt(ConnectSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
 }

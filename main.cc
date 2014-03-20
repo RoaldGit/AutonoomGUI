@@ -9,15 +9,17 @@
 #include <fstream>      // voor: std::ostream
 #include <string>       // voor: std::string
 #include<map>
+#include "ClientClick.h"
 using namespace std;
 
 typedef void(*pfunc)();
 
 map<string,pfunc> functionMap;
-
+ClientClick *client;
 
 void ping()
 {
+	client = new ClientClick();
 	cout << "okay" << endl;
 }
 
@@ -38,6 +40,11 @@ int main(int argc, char *argv[])
 	// Vraag de gebruiker om zijn keuze
 	cout << "Uw keuze: " << flush;
 				string  keuze = "";	cin >> keuze;
+				if(keuze.compare("stop")== 0)
+				{
+					stoppen = true;
+					break;
+				}
 				map<string,pfunc>::const_iterator iter = functionMap.find(keuze);
 				if(iter == functionMap.end()){
 					cout << "\nFunctie niet gevonden, sorry." << endl;
@@ -48,5 +55,6 @@ int main(int argc, char *argv[])
 
 				//(*iter)();
 	}
+	cout << "Tot ziens!"<< endl;
 	return 0;
 }

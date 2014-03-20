@@ -11,6 +11,7 @@
 #include <ws2tcpip.h>
 #include <winsock2.h>
 #include "NetworkServices.h"
+#include "NetworkData.h"
 #include <stdio.h>
 
 // size of buffer
