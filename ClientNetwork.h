@@ -17,7 +17,7 @@
 // size of buffer
 #define DEFAULT_BUFLEN 512
 // port to connect sockets through
-#define DEFAULT_PORT "6881"
+#define DEFAULT_PORT "5555"
 // Linken van libraries
 /*
 #pragma comment (lib, "Ws2_32.lib")

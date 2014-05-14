@@ -36,7 +36,7 @@ ClientNetwork::ClientNetwork(void) {
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP; // TCP connection!!!
 
-	iResult = getaddrinfo("192.168.7.1", DEFAULT_PORT, &hints, &result);
+	iResult = getaddrinfo("192.168.7.2", DEFAULT_PORT, &hints, &result);
 
 	if(iResult != 0)
 	{
