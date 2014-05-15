@@ -36,7 +36,7 @@ ClientNetwork::ClientNetwork(void) {
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_protocol = IPPROTO_TCP; // TCP connection!!!
 
-	iResult = getaddrinfo("192.168.1.105", DEFAULT_PORT, &hints, &result);
+	iResult = getaddrinfo("192.168.7.2", DEFAULT_PORT, &hints, &result);
 
 	if(iResult != 0)
 	{
@@ -62,7 +62,7 @@ ClientNetwork::ClientNetwork(void) {
 		{
 			closesocket(ConnectSocket);
 			ConnectSocket = INVALID_SOCKET;
-			printf("The server is down... did not connect");
+			printf("The server is down... did not connect\n");
 
 		}
 	}
@@ -92,4 +92,17 @@ ClientNetwork::ClientNetwork(void) {
 	//disable nagle
 	char value = 1;
 	setsockopt(ConnectSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
+}
+
+int ClientNetwork::receivePackets(char * recvbuf)
+{
+    iResult = NetworkServices::receiveMessage(ConnectSocket, recvbuf, MAX_PACKET_SIZE);
+    if( iResult == 0)
+    {
+        printf("Connection closed\n");
+        closesocket(ConnectSocket);
+        WSACleanup();
+        exit(1);
+    }
+    return iResult;
 }

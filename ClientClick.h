@@ -12,6 +12,11 @@
 #include <Windows.h>
 #include "ClientNetwork.h"
 #include "NetworkData.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+using namespace std;
+#define TCP_BUFFER_SIZE 1024
 
 class ClientClick
 {
@@ -20,6 +25,9 @@ public:
 
 	ClientClick();
 	~ClientClick(void);
+	void stuurPing();
+	void stuurMessage(string message);
+	void receiveMessage();
 
 	ClientNetwork* network;
 };

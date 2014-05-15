@@ -1,11 +1,5 @@
-/*
- * main.cc
+#include <iostream>
 
- *
- *  Created on: 12 mrt. 2014
- *      Author: Stef
- */
-#include <iostream>     // voor: std::cin, std::cout, std::cerr
 #include <fstream>      // voor: std::ostream
 #include <string>       // voor: std::string
 #include<map>
@@ -19,25 +13,28 @@ ClientClick *client;
 
 void ping()
 {
-	client = new ClientClick();
 	cout << "okay" << endl;
 	client->stuurPing();
 }
 
 void initAll()
 {
+    cout << "Connecting.." << endl;
+	client = new ClientClick();
 	functionMap.insert(make_pair("ping",*ping));
 }
 
 int main(int argc, char *argv[])
 {
 	bool stoppen = false;
+	bool custom = false;
 	initAll();
 	while(!stoppen) {
+    custom = false;
 	// Druk het keuzemenu af
 			cout << "\nKies actie:" << endl;
 			cout << "\nping: Ping BeagleBone." << endl;
-			cout << "\nmessage: Stuur message." << endl;
+			cout << "message: Stuur message." << endl;
 			cout << "\tstop: Stop programma." << endl;
 	// Vraag de gebruiker om zijn keuze
 	cout << "Uw keuze: " << flush;
@@ -49,17 +46,20 @@ int main(int argc, char *argv[])
 				}
 				if(keuze.compare("message")== 0)
 				{
+				    custom = true;
 					cout << "\nStuur je eigen message:" << endl;
 					string  message = "";	cin >> message;
-
+					client->stuurMessage(message);
 				}
-				map<string,pfunc>::const_iterator iter = functionMap.find(keuze);
-				if(iter == functionMap.end()){
-					cout << "\nFunctie niet gevonden, sorry." << endl;
-				}
-				else{
-					iter->second();
-				}
+				if(custom == false){
+                    map<string,pfunc>::const_iterator iter = functionMap.find(keuze);
+                    if(iter == functionMap.end()){
+                        cout << "\nFunctie niet gevonden, sorry." << endl;
+                    }
+                    else{
+                        iter->second();
+                    }
+                }
 
 				//(*iter)();
 	}
